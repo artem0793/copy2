@@ -1,19 +1,19 @@
 
 /**
- * Test.
+ * @file
+ * Main run file.
  */
 
-#include "OSystemAPI.h"
-#include "Tests.h"
+#include "Tools.h"
+#include "Test.h"
 
 void setup() {
-  Serial.begin(9600);
   // Load system.
-  system_get();
-  run_test();
+  test();
+  core_get().init();  
 }
 
 void loop() {
   // Run loop.
-  _system_loop();
+  core_get().loop();
 }

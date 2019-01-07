@@ -1,26 +1,29 @@
 
 /**
  * @file
+ * Abstract timeout callback.
  */
 
 class Timeout {
 
   protected:
+
     /**
      * Main callback handler.
      */
-    virtual void callback();
-    
+    virtual void callback() {}
+
   public:
-    /**
-     * Time to expire.
-     */
-    int unsigned expireTime;
+
+    boolean lock = false;
+
+    int unsigned expireTime = 0;
 
     /**
-     * Execute callback.
+     * Main execute callback.
      */
     void execute() {
+      this->lock = true;
       this->callback();
     }
 

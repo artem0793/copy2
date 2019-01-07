@@ -6,7 +6,7 @@
 
 template<typename TargetType>
 class EventCallback {
-  
+
   public:
 
     /**

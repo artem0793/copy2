@@ -6,12 +6,17 @@
 class TimeoutManager {
 
   protected:
+
+    /**
+     * Mapping of free queue.
+     */
+    boolean mapping[MAX_SIZE_OF_TIMEOUT_QUEUE] = { false };
+
     /**
      * Queue.
      */
     Timeout * queue[MAX_SIZE_OF_TIMEOUT_QUEUE];
 
-  private:
     /**
      * Hidden constructor.
      */
@@ -25,16 +30,16 @@ class TimeoutManager {
     /**
      * Find free plase in array.
      */
-    int getFreeQueueIndex() {
+    int getFreeMapIndex() {
       for (int unsigned index = 0; index < MAX_SIZE_OF_TIMEOUT_QUEUE; index++) {
-        if (this->queue[index] == NULL) {
+        if (this->mapping[index] == false) {
           return index;  
         }
       }
       
       return NO_FREE_INDEX;
     }
-        
+
   public:
 
     /**
@@ -49,11 +54,13 @@ class TimeoutManager {
     /**
      * Add new timeout to queue.
      */
-    int setTimeout(Timeout * timeout, int unsigned time) {
-      int index = this->getFreeQueueIndex();      
+    int add(Timeout * timeout, int unsigned timer) {
+      int index = this->getFreeMapIndex();      
+
       if (index != NO_FREE_INDEX) {
-        timeout->expireTime = micros() + time;  
+        this->mapping[index] = true;
         this->queue[index] = timeout;
+        this->queue[index]->expireTime = millis() + timer;
       }
 
       return index;
@@ -62,24 +69,49 @@ class TimeoutManager {
     /**
      * Clear timeout by index.
      */
-    void clearTimeout(int index) {
-      if (this->queue[index] != NULL) {
-        delete &(this->queue[index]);
+    void removeAt(int unsigned index) {
+      if (this->mapping[index] == true) {
+        this->mapping[index] = false;
       }
     }
 
     /**
      * Check all queue.
      */
-    void triggerQueue() {
-      int unsigned time = micros();
+    void trigger() {
+      int unsigned timer = millis();
 
-      for (int unsigned index = 0; index < MAX_SIZE_OF_TIMEOUT_QUEUE; index++) {      
-        if (this->queue[index] != NULL && this->queue[index]->expireTime <= time) {
+      for (int unsigned index = 0; index < MAX_SIZE_OF_TIMEOUT_QUEUE; index++) {        
+        if (
+            this->mapping[index] == true && 
+            this->queue[index]->lock == false && 
+            this->queue[index]->expireTime <= timer
+        ) {
           this->queue[index]->execute();
-          delete &(this->queue[index]);
+          this->mapping[index] = false;
         }
       }
     }
 
 };
+
+/**
+ * Get timeout manager.
+ */
+TimeoutManager & timeout_manager_get() {
+  return TimeoutManager::get();
+}
+
+/**
+ * Add new timeout to queue.
+ */
+int set_timeout(Timeout * timeout, int unsigned timer) {
+  return timeout_manager_get().add(timeout, timer);
+}
+
+/**
+ * Clear timeout by index.
+ */
+void clear_timeout(int unsigned index) {
+  timeout_manager_get().removeAt(index);
+}
