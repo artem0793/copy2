@@ -53,7 +53,7 @@ class EventTarget {
     void removeEventListener(EventCallback<TargetType> * callback) {
       for (int unsigned index = 0; index < MAX_SIZE_OF_EVENT_LISTENERS; index++) {
         if (this->mapping[index] == true && this->handlers[index] == callback) {
-          delete &(this->handlers[index]);
+          delete this->handlers[index];
           this->mapping[index] = false;
         }
       }
@@ -69,7 +69,7 @@ class EventTarget {
         }
       }
 
-      delete &event;
+      delete event;
     }
 
 };

@@ -71,6 +71,7 @@ class TimeoutManager {
      */
     void removeAt(int unsigned index) {
       if (this->mapping[index] == true) {
+        delete &(this->queue[index]);
         this->mapping[index] = false;
       }
     }
@@ -88,6 +89,7 @@ class TimeoutManager {
             this->queue[index]->expireTime <= timer
         ) {
           this->queue[index]->execute();
+          delete this->queue[index];
           this->mapping[index] = false;
         }
       }

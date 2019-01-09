@@ -23,6 +23,7 @@ class TestEventHandler: public EventCallback<CoreM> {
   void callback(Event<CoreM> * event) {
     Serial.println(event->type);
     Serial.println("END \n");
+    Serial.end();
   }
 };
 
@@ -59,4 +60,5 @@ void test() {
   test_1();
   test_2();
   test_3();
+  
 }

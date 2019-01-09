@@ -36,7 +36,9 @@ class CoreM: public EventTarget<CoreM> {
     /**
      * Instance of OSystem.
      */
-    void init();
+    void init() {
+      this->dispatchEvent(new Event<CoreM>("setup", this));
+    }
 
     /**
      * loop callback.
@@ -49,10 +51,6 @@ class CoreM: public EventTarget<CoreM> {
       timeout_manager_get().trigger();
     }
 };
-
-void CoreM::init() {
-  this->dispatchEvent(new Event<CoreM>("setup", this));
-}
 
 /**
  * Get system obkect controller.

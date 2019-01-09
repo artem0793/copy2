@@ -18,9 +18,9 @@ const int NO_FREE_INDEX = -1;
 /**
  * Max size of handlers for all events.
  */
-const int unsigned MAX_SIZE_OF_EVENT_LISTENERS = 5;
+const int unsigned MAX_SIZE_OF_EVENT_LISTENERS = 4;
 
 /**
  * Max size of timeout queue.
  */
-const int unsigned MAX_SIZE_OF_TIMEOUT_QUEUE = 5;
+const int unsigned MAX_SIZE_OF_TIMEOUT_QUEUE = 4;
