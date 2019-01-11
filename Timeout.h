@@ -14,8 +14,12 @@ class Timeout {
     virtual void callback() {}
 
   public:
-
+    
+    int index = NO_FREE_INDEX;
+    
     boolean lock = false;
+
+    boolean loop = false;
 
     int unsigned expireTime = 0;
 
@@ -25,6 +29,7 @@ class Timeout {
     void execute() {
       this->lock = true;
       this->callback();
+      this->lock = false;
     }
 
 };

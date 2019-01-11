@@ -36,7 +36,7 @@ class TimeoutManager {
           return index;  
         }
       }
-      
+
       return NO_FREE_INDEX;
     }
 
@@ -61,6 +61,7 @@ class TimeoutManager {
         this->mapping[index] = true;
         this->queue[index] = timeout;
         this->queue[index]->expireTime = millis() + timer;
+        this->queue[index]->index = index;
       }
 
       return index;
@@ -89,8 +90,11 @@ class TimeoutManager {
             this->queue[index]->expireTime <= timer
         ) {
           this->queue[index]->execute();
-          delete this->queue[index];
-          this->mapping[index] = false;
+
+          if (this->queue[index]->loop == false) {
+            delete this->queue[index];
+            this->mapping[index] = false;
+          }
         }
       }
     }

@@ -12,5 +12,4 @@
 #include "Timeout.h"
 #include "TimeoutManager.h"
 // System.
-#include "Pin.h";
 #include "CoreM.h";

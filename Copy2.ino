@@ -11,6 +11,8 @@ void setup() {
   // Load system.
   test();
   core_get().init();
+  
+  core_get().init();
 }
 
 void loop() {
