@@ -77,9 +77,6 @@ void test_3() {
 
 void test_4() {
   Serial.println("Тест 4: Loop timeout - должно быть 5 Жоп");
-//  TestTimeoutLoop * x = new TestTimeoutLoop;
-//  x->loop = true;
-//  Serial.println(set_timeout(x, 0));
   Serial.println(set_timeout(new TestTimeoutLoop, 0));
 
   for (int unsigned i = 0; i < 10; i++) {
