@@ -23,6 +23,8 @@ class Timeout {
 
     int unsigned expireTime = 0;
 
+    int unsigned timer = 0;
+
     /**
      * Main execute callback.
      */

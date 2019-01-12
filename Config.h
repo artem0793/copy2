@@ -7,7 +7,7 @@
 /**
  * Time for loop interval.
  */
-const int unsigned OS_DELAY_TIME = 1000;
+const int unsigned OS_DELAY_TIME = 30;
 
 /**
  * Default value for no value.
