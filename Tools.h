@@ -11,5 +11,8 @@
 #include "EventTarget.h"
 #include "Timeout.h"
 #include "TimeoutManager.h"
+//
+#include "DigitalInput.h";
+#include "DigitalOutput.h";
 // System.
 #include "CoreM.h";
