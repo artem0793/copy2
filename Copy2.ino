@@ -7,11 +7,6 @@
 #include "Tools.h"
 //#include "Test.h"
 
-
-
-
-/////////////////////////////////////////////
-
 class Test: public EventCallback<DigitalInput> {
   
   public:
