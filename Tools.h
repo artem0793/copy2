@@ -18,4 +18,5 @@
 #include "DigitalInput.h";
 #include "DigitalOutput.h";
 // System.
+#include "Button.h";
 #include "CoreM.h";

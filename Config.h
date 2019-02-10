@@ -35,14 +35,29 @@ const String EVENT_ON_SETUP = "s";
 /**
  * Connect event name.
  */
-const String EVENT_ON_CONNECT = "c";
+const String EVENT_ON_CONNECT = "connect";
 
 /**
  * Disconnect event name.
  */
-const String EVENT_ON_DISCONNECT = "dc";
+const String EVENT_ON_DISCONNECT = "disconnect";
 
 /**
  * Change event name.
  */
-const String EVENT_ON_CHANGE = "ch";
+const String EVENT_ON_CHANGE = "change";
+
+/**
+ * Change event name.
+ */
+const String EVENT_ON_PUSH_DOWN = "down";
+
+/**
+ * Change event name.
+ */
+const String EVENT_ON_CLICK = "click";
+
+/**
+ * Change event name.
+ */
+const String EVENT_ON_PUSH_UP = "up";

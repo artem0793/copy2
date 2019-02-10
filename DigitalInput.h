@@ -51,5 +51,8 @@ class DigitalInput: public EventTarget<DigitalInput> {
 };
 
 void DigitalInput::setListener() {
-  this->index = set_timeout(new InputEventListener<DigitalInput>(this), this->severity);
+  this->index = set_timeout(
+    new InputEventListener<DigitalInput>(this),
+    this->severity
+  );
 }
