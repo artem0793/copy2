@@ -16,8 +16,8 @@ class DigitalInput: public EventTarget<DigitalInput> {
     DigitalInput(int unsigned id, int unsigned severity) {
       this->id = id;
       this->severity = severity;
-      pinMode(this->getId(), INPUT);
-      
+
+      pinMode(this->id, INPUT);
       this->dispatchEvent(new Event<DigitalInput>(EVENT_ON_CONNECT, this));
       this->setListener();
     }
@@ -36,14 +36,18 @@ class DigitalInput: public EventTarget<DigitalInput> {
     boolean getValue() {
       return this->value;
     }
-    
-    void setValue(boolean value) {
-      this->value = value;
+
+    void triggerValue() {
+      boolean value = digitalRead(this->id) == HIGH ? true : false;
+
+      if (this->value != value) {
+        this->value = value;
+        this->dispatchEvent(
+          new Event<DigitalInput>(EVENT_ON_CHANGE, this)
+        );  
+      }
     }
 
-    int unsigned getId() {
-      return this->id;
-    }
 };
     
 class DigitalInputEventListener: public Timeout {
@@ -53,12 +57,7 @@ class DigitalInputEventListener: public Timeout {
     DigitalInput * pin;
 
     void callback() {
-      boolean value = digitalRead(this->pin->getId()) == HIGH ? true : false;
-
-      if (this->pin->getValue() != value) {
-        this->pin->setValue(value);
-        this->pin->dispatchEvent(new Event<DigitalInput>(EVENT_ON_CHANGE, this->pin));  
-      }
+      this->pin->triggerValue();
     }
     
   public:

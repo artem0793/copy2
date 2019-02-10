@@ -11,30 +11,31 @@ class DigitalOutput: public EventTarget<DigitalOutput> {
 
     DigitalOutput(int unsigned id) {
       this->id = id;
-      
-      pinMode(this->getId(), OUTPUT);
-      
-      this->dispatchEvent(new Event<DigitalOutput>(EVENT_ON_CONNECT, this));
+
+      pinMode(this->id, OUTPUT);
+      this->dispatchEvent(
+        new Event<DigitalOutput>(EVENT_ON_CONNECT, this)
+      );
     }
 
     ~DigitalOutput() {
-      this->dispatchEvent(new Event<DigitalOutput>(EVENT_ON_DISCONNECT, this));
+      this->dispatchEvent(
+        new Event<DigitalOutput>(EVENT_ON_DISCONNECT, this)
+      );
     }
 
     void setValue(boolean value) {
-      this->value = value;
-      
-      this->dispatchEvent(new Event<DigitalOutput>(EVENT_ON_CHANGE, this));
-      
-      digitalWrite(this->getId(), this->value ? HIGH : LOW);
+      if (this->value != value) {
+        this->value = value;
+        digitalWrite(this->id, this->value ? HIGH : LOW);
+        this->dispatchEvent(
+          new Event<DigitalOutput>(EVENT_ON_CHANGE, this)
+        );
+      }
     }
  
     boolean getValue() {
       return this->value;
-    }
-    
-    int unsigned getId() {
-      return this->id;
     }
 
 };

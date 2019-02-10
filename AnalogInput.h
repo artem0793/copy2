@@ -14,19 +14,20 @@ class AnalogInput: public EventTarget<AnalogInput> {
     
     int index;
     
-    float value = 0.0;
+    int value = 0;
     
-    float minValue;
+    int minValue;
     
-    float maxValue;
+    int maxValue;
 
   public:
 
-    AnalogInput(int unsigned id, int unsigned severity, float min_value = 0, float max_value = 100) {
+    AnalogInput(int unsigned id, int unsigned severity, int min_value = 0, int max_value = 100) {
       this->id = id;
       this->severity = severity;
       this->minValue = min_value;
       this->maxValue = max_value;
+
       this->dispatchEvent(
         new Event<AnalogInput>(EVENT_ON_CONNECT, this)
       );
@@ -46,30 +47,22 @@ class AnalogInput: public EventTarget<AnalogInput> {
       clear_timeout(this->index);
     }
 
-    float getValue() {
+    int getValue() {
       return this->value;
-    }
-    
-    void setValue(float value) {
-      this->value = value;
-    }
-
-    int unsigned getId() {
-      return this->id;
     }
 
     void triggerValue() {
-      float new_value = map(
+      int value = map(
         analogRead(this->id),
         0, 1023,
         this->minValue, this->maxValue
       );
-      
-      if (this->value != new_value) {
-        this->value = new_value;
+
+      if (this->value != value) {
+        this->value = value;
         this->dispatchEvent(
           new Event<AnalogInput>(EVENT_ON_CHANGE, this)
-        );  
+        );
       }
     }
 };

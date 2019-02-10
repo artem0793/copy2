@@ -37,7 +37,9 @@ class CoreM: public EventTarget<CoreM> {
      * Instance of OSystem.
      */
     void init() {
-      this->dispatchEvent(new Event<CoreM>("setup", this));
+      this->dispatchEvent(
+        new Event<CoreM>(EVENT_ON_SETUP, this)
+      );
     }
 
     /**

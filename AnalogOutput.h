@@ -10,21 +10,20 @@ class AnalogOutput: public EventTarget<AnalogOutput> {
 
     int unsigned id;
     
-    float value = 0.0;
+    int value = 0;
 
-    float minValue;
+    int minValue;
     
-    float maxValue;
+    int maxValue;
 
   public:
   
-    AnalogOutput(int unsigned id, float min_value = 0, float max_value = 100) {
+    AnalogOutput(int unsigned id, int min_value = 0, int max_value = 100) {
       this->id = id;
       this->minValue = min_value;
       this->maxValue = max_value;
 
       pinMode(this->id, OUTPUT);
-
       this->dispatchEvent(
         new Event<AnalogOutput>(EVENT_ON_CONNECT, this)
       );
@@ -36,14 +35,18 @@ class AnalogOutput: public EventTarget<AnalogOutput> {
       );
     }
 
-    float getValue() {
+    int getValue() {
       return this->value;
     }
 
-    void setValue(float new_value) {
+    void setValue(int new_value) {
       if (this->value != new_value) {
-        analogWrite(this->id, map(new_value, this->minValue, this->maxValue, 0, 255));
         this->value = new_value;
+
+        analogWrite(this->id, map(this->value, this->minValue, this->maxValue, 0, 255));
+        this->dispatchEvent(
+          new Event<AnalogOutput>(EVENT_ON_CHANGE, this)
+        );
       }
     }
 

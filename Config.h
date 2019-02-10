@@ -25,8 +25,24 @@ const int unsigned MAX_SIZE_OF_EVENT_LISTENERS = 4;
  */
 const int unsigned MAX_SIZE_OF_TIMEOUT_QUEUE = 4;
 
-// Events
+// Events names
 
-const String EVENT_ON_CONNECT = "connect";
-const String EVENT_ON_DISCONNECT = "disconnect";
-const String EVENT_ON_CHANGE = "change";
+/**
+ * Setup event name.
+ */
+const String EVENT_ON_SETUP = "s";
+
+/**
+ * Connect event name.
+ */
+const String EVENT_ON_CONNECT = "c";
+
+/**
+ * Disconnect event name.
+ */
+const String EVENT_ON_DISCONNECT = "dc";
+
+/**
+ * Change event name.
+ */
+const String EVENT_ON_CHANGE = "ch";
