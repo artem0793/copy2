@@ -6,18 +6,6 @@
 
 #include "Tools.h"
 
-class MyButton: public Button {
-  public:
-    
-    MyButton(int pin): Button(pin) {
-      
-    }
-    
-    void onClick() {
-      Serial.println("Jr");
-    }
-};
-
 void setup() {
   // Load system.
   core_get().init();
