@@ -1,12 +1,27 @@
 
 /**
  * @file
+ * Кнопка.
  */
 
-
-
 /**
- * + в пин.
+ * Пример подключения:
+ * Плюс пустить в кнопку и через сопротивление в минус, 
+ * а замыкающий конец кнопки в пин.
+ *
+ * Пример кода:
+ * class MyButton: public Button {
+ *   public:
+ *     MyButton(int pin): Button(pin) {
+ *       Serial.begin(9600);
+ *     }
+ *   
+ *     void onClick() {
+ *       Serial.println("click: Ok");
+ *     }
+ *  };
+ * 
+ *  new MyButton(12);
  */
 class Button: public EventTarget<Button> {
   
