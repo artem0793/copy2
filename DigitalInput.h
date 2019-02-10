@@ -49,25 +49,7 @@ class DigitalInput: public EventTarget<DigitalInput> {
     }
 
 };
-    
-class DigitalInputEventListener: public Timeout {
-  
-  protected:
-
-    DigitalInput * pin;
-
-    void callback() {
-      this->pin->triggerValue();
-    }
-    
-  public:
-    
-    DigitalInputEventListener(DigitalInput * pin) {
-      this->pin = pin;
-      this->loop = true;
-    }
-};
 
 void DigitalInput::setListener() {
-  this->index = set_timeout(new DigitalInputEventListener(this), this->severity);
+  this->index = set_timeout(new InputEventListener<DigitalInput>(this), this->severity);
 }

@@ -66,28 +66,10 @@ class AnalogInput: public EventTarget<AnalogInput> {
       }
     }
 };
-    
-class AnalogInputEventListener: public Timeout {
-
-  protected:
-
-    AnalogInput * pin;
-
-    void callback() {
-      this->pin->triggerValue();
-    }
-    
-  public:
-    
-    AnalogInputEventListener(AnalogInput * pin) {
-      this->pin = pin;
-      this->loop = true;
-    }
-};
 
 void AnalogInput::setListener() {
   this->index = set_timeout(
-    new AnalogInputEventListener(this), 
+    new InputEventListener<AnalogInput>(this), 
     this->severity
   );
 }
