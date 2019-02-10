@@ -13,6 +13,7 @@
 #include "TimeoutManager.h"
 //
 #include "AnalogInput.h";
+#include "AnalogOutput.h";
 #include "DigitalInput.h";
 #include "DigitalOutput.h";
 // System.

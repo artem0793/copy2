@@ -16,13 +16,13 @@ class AnalogInput: public EventTarget<AnalogInput> {
     
     float value = 0.0;
     
-    int minValue;
+    float minValue;
     
-    int maxValue;
+    float maxValue;
 
   public:
 
-    AnalogInput(int unsigned id, int unsigned severity, int min_value = 0, int max_value = 100) {
+    AnalogInput(int unsigned id, int unsigned severity, float min_value = 0, float max_value = 100) {
       this->id = id;
       this->severity = severity;
       this->minValue = min_value;

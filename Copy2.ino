@@ -47,12 +47,21 @@ void setup() {
 //  pin->addEventListener("change", callback);
 
 
-  AnalogInput * analog_pin = new AnalogInput(0, 100);
+//  AnalogInput * analog_pin = new AnalogInput(0, 100);
+//
+//  AnalogTest * analog_callback = new AnalogTest;
+//
+//  analog_pin->addEventListener("change", analog_callback);
 
-  AnalogTest * analog_callback = new AnalogTest;
-
-  analog_pin->addEventListener("change", analog_callback);
-
+    AnalogOutput * analog_pin = new AnalogOutput(9);
+    for (int i = 0; i <= 100; i++) {
+      delay(500);
+      analog_pin->setValue(i);
+      if (i == 100) {
+        i = 0;
+      }
+      Serial.println(i);
+    }
 }
 
 void loop() {
