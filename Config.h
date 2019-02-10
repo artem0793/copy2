@@ -24,3 +24,9 @@ const int unsigned MAX_SIZE_OF_EVENT_LISTENERS = 4;
  * Max size of timeout queue.
  */
 const int unsigned MAX_SIZE_OF_TIMEOUT_QUEUE = 4;
+
+// Events
+
+const String EVENT_ON_CONNECT = "connect";
+const String EVENT_ON_DISCONNECT = "disconnect";
+const String EVENT_ON_CHANGE = "change";

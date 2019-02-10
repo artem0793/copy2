@@ -18,13 +18,13 @@ class DigitalInput: public EventTarget<DigitalInput> {
       this->severity = severity;
       pinMode(this->getId(), INPUT);
       
-      this->dispatchEvent(new Event<DigitalInput>("connect", this));
+      this->dispatchEvent(new Event<DigitalInput>(EVENT_ON_CONNECT, this));
       this->setListener();
     }
 
     ~DigitalInput() {
       this->clearListener();
-      this->dispatchEvent(new Event<DigitalInput>("disconnect", this));
+      this->dispatchEvent(new Event<DigitalInput>(EVENT_ON_DISCONNECT, this));
     }
 
     void setListener();
@@ -57,7 +57,7 @@ class DigitalInputEventListener: public Timeout {
 
       if (this->pin->getValue() != value) {
         this->pin->setValue(value);
-        this->pin->dispatchEvent(new Event<DigitalInput>("change", this->pin));  
+        this->pin->dispatchEvent(new Event<DigitalInput>(EVENT_ON_CHANGE, this->pin));  
       }
     }
     

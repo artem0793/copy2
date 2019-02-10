@@ -22,6 +22,15 @@ class Test: public EventCallback<DigitalInput> {
     }
 };
 
+class AnalogTest: public EventCallback<AnalogInput> {
+ 
+  protected:
+
+    void callback(Event<AnalogInput> * event) {
+      Serial.println(event->target->getValue());
+    }
+};
+
 void setup() {
   // Load system.
   // test();
@@ -29,13 +38,20 @@ void setup() {
 
   core_get().init();
 
-  DigitalInput * pin = new DigitalInput(2, 50);
+//  DigitalInput * pin = new DigitalInput(2, 50);
 
-  Test * callback = new Test;
+//  Test * callback = new Test;
 
-  callback->led = new DigitalOutput(8);
+//  callback->led = new DigitalOutput(8);
 
-  pin->addEventListener("change", callback);
+//  pin->addEventListener("change", callback);
+
+
+  AnalogInput * analog_pin = new AnalogInput(0, 100);
+
+  AnalogTest * analog_callback = new AnalogTest;
+
+  analog_pin->addEventListener("change", analog_callback);
 
 }
 

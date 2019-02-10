@@ -14,17 +14,17 @@ class DigitalOutput: public EventTarget<DigitalOutput> {
       
       pinMode(this->getId(), OUTPUT);
       
-      this->dispatchEvent(new Event<DigitalOutput>("connect", this));
+      this->dispatchEvent(new Event<DigitalOutput>(EVENT_ON_CONNECT, this));
     }
 
     ~DigitalOutput() {
-      this->dispatchEvent(new Event<DigitalOutput>("disconnect", this));
+      this->dispatchEvent(new Event<DigitalOutput>(EVENT_ON_DISCONNECT, this));
     }
 
     void setValue(boolean value) {
       this->value = value;
       
-      this->dispatchEvent(new Event<DigitalOutput>("change", this));
+      this->dispatchEvent(new Event<DigitalOutput>(EVENT_ON_CHANGE, this));
       
       digitalWrite(this->getId(), this->value ? HIGH : LOW);
     }
