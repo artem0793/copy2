@@ -4,6 +4,8 @@
  * Arduino API.
  */
 
+// External libraries.
+#include "Display.h"
 // API tools.
 #include "Config.h"
 #include "Event.h"
@@ -17,6 +19,7 @@
 #include "AnalogOutput.h";
 #include "DigitalInput.h";
 #include "DigitalOutput.h";
+#include "Panel.h";
 // System.
 #include "Button.h";
 #include "CoreM.h";
