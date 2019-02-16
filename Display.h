@@ -1,6 +1,3 @@
-//YWROBOT
-#ifndef LiquidCrystal_I2C_h
-#define LiquidCrystal_I2C_h
 
 #include <inttypes.h>
 #include "Print.h" 
@@ -78,22 +75,9 @@ public:
   void noAutoscroll(); 
   void createChar(uint8_t, uint8_t[]);
   void setCursor(uint8_t, uint8_t); 
-#if defined(ARDUINO) && ARDUINO >= 100
   virtual size_t write(uint8_t);
-#else
-  virtual void write(uint8_t);
-#endif
   void command(uint8_t);
   void init();
-
-////compatibility API function aliases
-void blink_on();						// alias for blink()
-void blink_off();       					// alias for noBlink()
-void cursor_on();      	 					// alias for cursor()
-void cursor_off();      					// alias for noCursor()
-void setBacklight(uint8_t new_val);				// alias for backlight() and nobacklight()
-void load_custom_character(uint8_t char_num, uint8_t *rows);	// alias for createChar()
-void printstr(const char[]);
 
 private:
   void init_priv();
@@ -111,4 +95,6 @@ private:
   uint8_t _backlightval;
 };
 
-#endif
+Display * get_display();
+
+bool power_display(bool state);

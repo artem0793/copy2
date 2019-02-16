@@ -2,28 +2,15 @@
 
 #include "Display.h"
 #include <inttypes.h>
-#if defined(ARDUINO) && ARDUINO >= 100
-
 #include "Arduino.h"
+#include "Wire.h"
 
 #define printIIC(args)	Wire.write(args)
+
 inline size_t Display::write(uint8_t value) {
 	send(value, Rs);
 	return 1;
 }
-
-#else
-#include "WProgram.h"
-
-#define printIIC(args)	Wire.send(args)
-inline void Display::write(uint8_t value) {
-	send(value, Rs);
-}
-
-#endif
-#include "Wire.h"
-
-
 
 // When the display powers up, it is configured as follows:
 //
@@ -120,7 +107,6 @@ void Display::begin(uint8_t cols, uint8_t lines, uint8_t dotsize) {
 	command(LCD_ENTRYMODESET | _displaymode);
 	
 	home();
-  
 }
 
 /********** high level commands, for the user! */
@@ -261,41 +247,33 @@ void Display::pulseEnable(uint8_t _data){
 	
 	expanderWrite(_data & ~En);	// En low
 	delayMicroseconds(50);		// commands need > 37us to settle
-} 
-
-
-// Alias functions
-
-void Display::cursor_on(){
-	cursor();
 }
 
-void Display::cursor_off(){
-	noCursor();
+Display * get_display() {
+  static Display * display;
+
+  if (!display) {
+    display = new Display(0x27,20,4);
+    display->init();
+  }
+
+  return display;
 }
 
-void Display::blink_on(){
-	blink();
-}
+boolean power_display(boolean state) {
+  static bool status = false;
 
-void Display::blink_off(){
-	noBlink();
-}
+  if (status != state) {
+    if (state) {
+      get_display()->backlight();
+      get_display()->home();  
+    }
+    else {
+      get_display()->home();
+      get_display()->noBacklight();
+    }
+    status = state;
+  }
 
-void Display::load_custom_character(uint8_t char_num, uint8_t *rows){
-		createChar(char_num, rows);
-}
-
-void Display::setBacklight(uint8_t new_val){
-	if(new_val){
-		backlight();		// turn backlight on
-	}else{
-		noBacklight();		// turn backlight off
-	}
-}
-
-void Display::printstr(const char c[]){
-	//This function is not identical to the function used for "real" I2C displays
-	//it's here so the user sketch doesn't have to be changed 
-	print(c);
+  return status;
 }

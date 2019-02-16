@@ -30,7 +30,7 @@ const int unsigned MAX_SIZE_OF_TIMEOUT_QUEUE = 4;
 /**
  * Setup event name.
  */
-const String EVENT_ON_SETUP = "s";
+const String EVENT_ON_SETUP = "setup";
 
 /**
  * Connect event name.
